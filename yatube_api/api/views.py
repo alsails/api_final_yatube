@@ -6,7 +6,7 @@ from rest_framework.permissions import (
 )
 from rest_framework.exceptions import ValidationError
 from django.shortcuts import get_object_or_404
-from rest_framework import filters
+from rest_framework.filters import SearchFilter
 from posts.models import Follow, Group, Post, User
 from .serializers import (
     PostSerializer,
@@ -61,7 +61,7 @@ class FollowViewSet(ModelViewSet):
     queryset = Follow.objects.all()
     serializer_class = FollowSerializer
     permission_classes = (IsAuthenticated,)
-    filter_backends = (filters.SearchFilter,)
+    filter_backends = (SearchFilter,)
     search_fields = ('following__username',)
 
     def get_queryset(self):
